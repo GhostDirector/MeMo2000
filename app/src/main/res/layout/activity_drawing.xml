@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#550000">
+
+        <Button
+            android:id="@+id/undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds ="true"
+            android:text="U"
+            android:onClick="onClick"/>
+
+        <Button
+            android:id="@+id/redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds ="true"
+            android:text="R"
+            android:onClick="onClick"/>
+
+        <Button
+            android:id="@+id/eraser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds ="true"
+            android:text=" "
+            android:onClick="onClick"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom|center">
+
+            <Button
+                android:id="@+id/size_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbutton"
+                android:minHeight="30dp"
+                android:minWidth="30dp"
+                android:layout_marginBottom="10dp"
+                android:onClick="onClick"
+                android:text="S"
+                android:textSize="24px" />
+
+            <Button
+                android:id="@+id/color_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbutton"
+                android:minHeight="30dp"
+                android:minWidth="30dp"
+                android:layout_marginBottom="10dp"
+                android:onClick="onClick"
+                android:textSize="2px" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left">
+
+        <fi.tamk.tiko.memo2000.MemoView
+            android:id="@+id/drawing_area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </fi.tamk.tiko.memo2000.MemoView>
+
+        <LinearLayout
+            android:id="@+id/color_palette"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:background="#00ffffff"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/color_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_white"
+                android:onClick="onClickColor"
+                android:tag="#ffffff"/>
+
+            <Button
+                android:id="@+id/color_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_black"
+                android:onClick="onClickColor"
+                android:tag="#000000"/>
+
+            <Button
+                android:id="@+id/color_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_red"
+                android:onClick="onClickColor"
+                android:tag="#ff0000"/>
+
+            <Button
+                android:id="@+id/color_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_green"
+                android:onClick="onClickColor"
+                android:tag="#44ff00"/>
+
+            <Button
+                android:id="@+id/color_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_blue"
+                android:onClick="onClickColor"
+                android:tag="#001eff"/>
+
+            <Button
+                android:id="@+id/color_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_yellow"
+                android:onClick="onClickColor"
+                android:tag="#f7ff00"/>
+
+            <Button
+                android:id="@+id/color_cyan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_cyan"
+                android:onClick="onClickColor"
+                android:tag="#00ffee"/>
+
+            <Button
+                android:id="@+id/color_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_pink"
+                android:onClick="onClickColor"
+                android:tag="#ff00b7"/>
+
+            <Button
+                android:id="@+id/color_orange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:background="@drawable/roundedbutton_orange"
+                android:onClick="onClickColor"
+                android:tag="#ffb700"/>
+
+            <Button
+                android:id="@+id/color_purple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:maxWidth="10dp"
+                android:background="@drawable/roundedbutton_purple"
+                android:onClick="onClickColor"
+                android:tag="#b700ff"/>
+
+            <Button
+                android:id="@+id/color_brown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:background="@drawable/roundedbutton_brown"
+                android:onClick="onClickColor"
+                android:tag="#3e1f02"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/size_palette"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:background="#00ffffff"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/size_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="2"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="4"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="8"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:maxWidth="10dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="12"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:maxWidth="10dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="18"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:maxWidth="10dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="26"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:maxWidth="10dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="50"
+                android:onClick="onClickSize"/>
+
+            <Button
+                android:id="@+id/size_80"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:maxHeight="10dp"
+                android:maxWidth="10dp"
+                android:background="@drawable/roundedbutton_size"
+                android:text="80"
+                android:onClick="onClickSize"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

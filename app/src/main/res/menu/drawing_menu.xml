@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Save"
+        android:id="@+id/save"
+        app:showAsAction="ifRoom"/>
+
+    <item android:title="Clear All"
+        android:id="@+id/clear_all"/>
+
+    <item android:title="Settings"
+        android:id="@+id/drawing_settings"/>
+</menu>
