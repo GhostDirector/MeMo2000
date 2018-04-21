@@ -8,10 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Environment;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -19,41 +17,77 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
+/**
+ * The type Memo view.
+ */
 public class MemoView extends View {
+    /**
+     * The Paths.
+     */
     private ArrayList<Path> paths;
+    /**
+     * The Undone paths.
+     */
     private ArrayList<Path> undonePaths;
-    //drawing path
+    /**
+     * The Draw path.
+     */
     private Path drawPath;
-    //drawing and canvas paint
+    /**
+     * The Draw paint.
+     */
     private Paint drawPaint;
+    /**
+     * The Canvas paint.
+     */
     private Paint canvasPaint;
-    //initial color
+    /**
+     * The Paint color.
+     */
     private int paintColor;
-    //size
+    /**
+     * The Size.
+     */
     private int size = 4;
-    //canvas
-    private Canvas drawCanvas;
-    //canvas bitmap
+    /**
+     * The Canvas bitmap.
+     */
     private Bitmap canvasBitmap;
+    /**
+     * The Colors map.
+     */
     private Map<Path, Integer> colorsMap;
+    /**
+     * The Size map.
+     */
     private Map<Path, Integer> sizeMap;
+    /**
+     * The Start x.
+     */
     private float startX;
+    /**
+     * The Start y.
+     */
     private float startY;
-    private boolean eraseMode = false;
 
+    /**
+     * Instantiates a new Memo view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public MemoView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setup();
     }
 
+    /**
+     * Setup brush color and size and canvas.
+     */
     public void setup(){
         setBackgroundColor(Color.WHITE);
         drawPath = new Path();
@@ -74,19 +108,18 @@ public class MemoView extends View {
         canvasPaint = new Paint(Paint.DITHER_FLAG);
     }
 
+    /**
+     * On size change.
+     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-//view given size
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        drawCanvas = new Canvas(canvasBitmap);
     }
 
-//    @Override
-//    protected void onDraw(Canvas canvas) {
-//        canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
-//        canvas.drawPath(drawPath, drawPaint);
-//    }
+    /**
+     * On draw.
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
@@ -102,18 +135,13 @@ public class MemoView extends View {
         canvas.drawPath(drawPath, drawPaint);
     }
 
+    /**
+     * On touch event. Register touches as strokes that are saved for undo and redo.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//detect user touch
         float touchX = event.getX();
         float touchY = event.getY();
-
-//        if (eraseMode) {
-//            drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//        } else {
-//            drawPaint.setXfermode(null);
-//            drawPaint.setAlpha(0xFF);
-//        }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -145,30 +173,44 @@ public class MemoView extends View {
         return true;
     }
 
+    /**
+     * Set color of brush.
+     *
+     * @param newColor the new color
+     */
     public void setColor(String newColor){
-//set color
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
     }
 
-    public void setsize(int size){
-//set color
+    /**
+     * Set size of brush.
+     *
+     * @param size the size
+     */
+    public void setSize(int size){
         invalidate();
         this.size = size;
         drawPaint.setStrokeWidth(this.size);
     }
 
+    /**
+     * Set background if drawing on an old picture.
+     *
+     * @param path the path
+     */
     public void setBackground(String path){
-        if (path != null){
-            if (path.trim() != ""){
-                Bitmap bitmap = BitmapFactory.decodeFile(path);
-                BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
-                setBackground(bitmapDrawable);
-            }
+        if (path != null && !path.trim().equals("")){
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
+            setBackground(bitmapDrawable);
         }
     }
 
+    /**
+     * Clear all.
+     */
     public void clearAll() {
         canvasBitmap.eraseColor(Color.WHITE);
 
@@ -179,6 +221,9 @@ public class MemoView extends View {
         invalidate();
     }
 
+    /**
+     * Undo last stroke.
+     */
     public void undo() {
         if (paths.size() > 0) {
             undonePaths.add(paths.remove(paths.size() - 1));
@@ -186,6 +231,9 @@ public class MemoView extends View {
         }
     }
 
+    /**
+     * Redo last undone.
+     */
     public void redo() {
         if (undonePaths.size() > 0) {
             paths.add(undonePaths.remove(undonePaths.size() - 1));
@@ -193,6 +241,11 @@ public class MemoView extends View {
         }
     }
 
+    /**
+     * Save bitmap to local storage.
+     *
+     * @param resolver the resolver
+     */
     public void save(ContentResolver resolver) {
         this.setDrawingCacheEnabled(true);
         Bitmap bitmap = this.getDrawingCache();
@@ -208,7 +261,16 @@ public class MemoView extends View {
         this.destroyDrawingCache();
     }
 
-    public void setEraser(boolean eraseMode) {
-        this.eraseMode = eraseMode;
+    /**
+     * Gets uri for img share.
+     *
+     * @param resolver the resolver
+     * @return the uri
+     */
+    public Uri getUri(ContentResolver resolver) {
+        this.setDrawingCacheEnabled(true);
+        String imgPath = MediaStore.Images.Media.insertImage(resolver, this.getDrawingCache(), "MeMo2000", null);
+        this.destroyDrawingCache();
+        return Uri.parse(imgPath);
     }
 }

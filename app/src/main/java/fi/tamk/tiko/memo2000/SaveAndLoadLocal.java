@@ -1,9 +1,7 @@
 package fi.tamk.tiko.memo2000;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
@@ -13,15 +11,24 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Created by ghost on 29.3.2018.
+ * Save and Load Local.
  */
-
 public class SaveAndLoadLocal {
 
+    /**
+     * Instantiates a new Save and load local.
+     */
     public SaveAndLoadLocal(){
 
     }
 
+    /**
+     * Save img to local storage. Create folder for app usage if not exists.
+     *
+     * @param contentResolver the content resolver
+     * @param bitmap          the bitmap img
+     * @return                true if success
+     */
     public static boolean saveImg(ContentResolver contentResolver, Bitmap bitmap) {
         File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/MeMo2000");
 
@@ -38,8 +45,8 @@ public class SaveAndLoadLocal {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.flush();
             outputStream.close();
-            System.out.println("Saved to !");
-            String imgSaved = MediaStore.Images.Media.insertImage(contentResolver,file.getAbsolutePath(),file.getName(), "MeMo2000");
+            System.out.println("Saved!");
+            MediaStore.Images.Media.insertImage(contentResolver,file.getAbsolutePath(),file.getName(), "MeMo2000");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,6 +55,11 @@ public class SaveAndLoadLocal {
         }
     }
 
+    /**
+     * Load array list of saved notes.
+     *
+     * @return the array list
+     */
     public static ArrayList<Note> load(){
         ArrayList<Note> notes = new ArrayList<>();
         File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/MeMo2000");
@@ -64,4 +76,5 @@ public class SaveAndLoadLocal {
         }
         return notes;
     }
+
 }

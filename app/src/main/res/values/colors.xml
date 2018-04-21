@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorStatusBar">#3A5018</color>
+
+    <string name="colorBackground">#3A5018</string>
+    <string name="colorActionbar">#6B9625</string>
+    <string name="colorCard">#6B9625</string>
+    <string name="colorToolBar">#6B9625</string>
 </resources>

@@ -12,16 +12,32 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by ghost on 29.3.2018.
+ * Recycler View Adapter.
  */
-
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    /**
+     * The Notes.
+     */
     private Object[] notes;
 
+    /**
+     * The type View holder.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public ImageView image;
+        /**
+         * The Title.
+         */
+        private TextView title;
+        /**
+         * The Image.
+         */
+        private ImageView image;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param item the item
+         */
         public ViewHolder(View item) {
             super(item);
             this.title = (TextView) itemView.findViewById(R.id.title);
@@ -29,10 +45,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+    /**
+     * Instantiates a new Recycler view adapter.
+     *
+     * @param noteList the note list
+     */
     public RecyclerViewAdapter(List<Note> noteList) {
         this.notes = noteList.toArray();
     }
 
+    /**
+     * On create view holder.
+     */
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                              int viewType) {
@@ -42,6 +66,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(noteView);
     }
 
+    /**
+     * On bind view holder.
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(((Note)notes[position]).getTitle());
@@ -50,6 +77,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.image.setTag(((Note)notes[position]).getPicPath());
     }
 
+    /**
+     * Get item count of notes.
+     */
     @Override
     public int getItemCount() {
         return notes.length;
